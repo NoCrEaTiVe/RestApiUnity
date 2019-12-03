@@ -15,3 +15,4 @@ class FoodSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         photo_url = food.image.url
         return request.build_absolute_uri(photo_url)
+    
