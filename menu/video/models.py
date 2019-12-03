@@ -8,7 +8,7 @@ def get_upload_path(instance, filename):
 
 class Video(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    food = models.ForeignKey("food.Food",on_delete=models.CASCADE)
+    food = models.OneToOneField("food.Food",on_delete=models.CASCADE)
     uid  = uuid.uuid4()
     file = models.FileField(blank=True, null=False,upload_to=get_upload_path)
     title = models.CharField(max_length = 60)

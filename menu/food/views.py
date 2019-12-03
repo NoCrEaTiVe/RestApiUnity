@@ -22,5 +22,5 @@ def get_restaurant_information(request,id):
 @api_view(['GET'])  
 def get_food_information(request,id,foodid):
     food = Food.objects.get(id=foodid)
-    serializer = FoodSerializer(food,many=True)
+    serializer = FoodSerializer(food,many=False,context={'request': request})
     return JSONResponse(serializer.data)

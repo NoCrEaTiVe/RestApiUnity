@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'food',
     'video',
+  
+
 
 ]
 REST_FRAMEWORK = {
