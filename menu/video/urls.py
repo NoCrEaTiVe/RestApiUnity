@@ -7,10 +7,5 @@ from django.urls import path, include                   # add this
 
 
 urlpatterns = [
-    path('vidoes/', views.videos),
-    path('upload/', FileUploadView.as_view()),
-    path('get_videos/', views.get_videos),
-    path('delete/',views.delete_videos)
-
-
+    path('<str:id>/<str:foodid>/',views.get_food_information)
 ]

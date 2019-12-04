@@ -2,12 +2,14 @@ from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 from rest_framework.decorators import api_view
 from . models import Video
+from food.models import Food
+from food.serializers import FoodSerializer
 from .serializers import VideoSerializer
 from rest_framework.parsers import FileUploadParser,MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-
+from collections import Counter
 
 
 class FileUploadView(APIView):
@@ -30,25 +32,17 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content,**kwargs)
  
-def index(request):
-    return HttpResponse("HelloWorld")
- 
-@api_view(['GET'])
-def videos(request):
-    videos = Video.objects.all()
+
+
+
+
+@api_view(['GET'])  
+def get_food_information(request,id,foodid):
+    food = Food.objects.get(id=foodid)
+    video = Video.objects.get(food=food)
+    serializer2 = VideoSerializer(video,many=False,context={'request': request})
+    serializer = FoodSerializer(food,many=False,context={'request': request})
+    b=serializer.data
+    b["videofile"] = serializer2.data["file"]
     
-    serializer = VideoSerializer(videos, many=True)
-    return JSONResponse(serializer.data)
-@api_view(['GET'])
-def get_videos(request):
-    files=Video.objects.all()
-    serializer = VideoSerializer(files,many=True)
-    return JSONResponse(serializer.data)
-
-
-@api_view(['POST'])  
-def delete_videos(request): 
-     Video.objects.all().delete()
-     files=Video.objects.all()
-     serializer = VideoSerializer(files,many=True)
-     return JSONResponse(serializer.data)
+    return JSONResponse(b) 

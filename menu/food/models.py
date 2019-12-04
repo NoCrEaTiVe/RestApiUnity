@@ -1,15 +1,15 @@
 from django.db import models
+
 import uuid
 import os
 def get_upload_path(instance, filename):
-    
     return os.path.join(
-      str(instance.restaurant.id),str(instance.id),"image",str(instance.uid))
+        str(instance.restaurant.id),str(instance.id),"image",str(instance.uid))
 def get_upload_path2(instance, filename):
-    
     return os.path.join(
       str(instance.id),"models",str(instance.uid))
-import uuid
+
+
 class Category(models.Model):
     name = models.TextField(max_length=100)
     class Meta:
