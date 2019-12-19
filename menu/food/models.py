@@ -17,8 +17,8 @@ class Category(models.Model):
 class Food(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name=models.TextField(max_length=100)
-    category = models.ForeignKey("Category",on_delete=models.CASCADE)
-    restaurant = models.ForeignKey("Restaurant",on_delete=models.CASCADE)
+    category = models.ForeignKey("Category",on_delete=models.CASCADE,null=True)
+    restaurant = models.ForeignKey("Restaurant",on_delete=models.CASCADE,null=True)
 
     uid  = uuid.uuid4()
     image = models.FileField(upload_to=get_upload_path)

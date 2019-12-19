@@ -40,7 +40,8 @@ class JSONResponse(HttpResponse):
 def get_food_information(request,id,foodid):
     food = Food.objects.get(id=foodid)
     video = Video.objects.get(food=food)
-    serializer2 = VideoSerializer(video,many=False,context={'request': request})
+    serializer2 = VideoSerializer(video,many=False,
+    )
     serializer = FoodSerializer(food,many=False,context={'request': request})
     b=serializer.data
     b["videofile"] = serializer2.data["file"]
